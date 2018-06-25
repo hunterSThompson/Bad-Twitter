@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  iqvia:
+    image: iqvia
+    build:
+      context: .\Iqvia
+      dockerfile: Dockerfile
