@@ -147,6 +147,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TweetDTO.cs" />
+    <Compile Include="Services\TweetService.cs" />
+    <Compile Include="Services\TwitterApiClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

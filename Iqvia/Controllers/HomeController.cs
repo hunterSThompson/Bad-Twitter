@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Iqvia.Services;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,11 +30,13 @@ namespace Iqvia.Controllers
             return View();
         }
 
-        [Route("fetch")]
         [HttpGet]
-        public string GetData(DateTime start, DateTime end)
+        public async Task<string> GetData(DateTime start, DateTime end)
         {
-            return $"Hello you request: {start} and {end}";
+            var tweets = await TweetService.GetTweets(start, end);
+            var json = JsonConvert.SerializeObject(tweets);
+
+            return json;
         }
     }
 }

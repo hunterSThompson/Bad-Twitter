@@ -2,13 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 
-<!---->
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <h1>IQVIA Interview Project</h1>
+    <p class="lead">Want tweets from a "bad twitter API"?  You've come to the right place.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
--->
 
 
 <!-- Import JQuery -->
@@ -25,13 +23,42 @@
             var end = $('#end').val();
 
             if (!start || !end) {
-                alert('Please select a start & end date!');
+                //alert('Please select a start & end date!');
             }
 
             var url = "/Home/GetData?start=" + start + "&end=" + end;
+
             //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017');
+
             $.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017', function (result) {
-                alert("result" + result);
+
+                var res = JSON.parse(result);
+
+                if (res.length == 0) {
+                    alert("No tweets on this date, sorry man :(");
+                }
+
+                // todo: replace this with bootgrid plugin.
+                var container = $("#container");
+                container.empty();
+                $('table').show();
+
+                for (i = 0; i < res.length; i++) {
+
+                    var dataRow = res[i];
+
+                    var row = $("<tr><tr/>");
+
+                    var col1 = $("<td>" + dataRow.stamp + "<td/>");
+                    var col2 = $("<td>" + dataRow.text + "<td/>");
+                    var col3 = $("<td>" + dataRow.id + "<td/>"); 
+
+                    row.append(col1);
+                    row.append(col2);
+                    row.append(col3);
+
+                    container.append(row);
+                }
             });
         });
     }
@@ -41,12 +68,26 @@
 </script>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
 
         <button type="button" class="btn btn-success" id="fetch">Get Tweets</button>
         <input id="start" type="date" />
         <input id="end" type="date" />
 
+        <table class="table" style="display: none">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Message</th>
+                    <th>Id</th>
+                </tr>
+            </thead>
+            <tbody id="container">
+
+            </tbody>
+        </table>
+
+        <!--
         <h2>Getting started</h2>
         <p>
             ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
@@ -54,13 +95,14 @@
             for enjoyable, agile development.
         </p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        -->
     </div>
-    <div class="col-md-6">
+    <!--
+    <div class="col-md-4">
         <h2>Get more libraries</h2>
         <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
     </div>
-    <!--
     <div class="col-md-4">
         <h2>Web Hosting</h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
