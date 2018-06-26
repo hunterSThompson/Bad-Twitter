@@ -24,6 +24,7 @@ var main = function () {
     var fetchButton = $('#fetch');
     var startInput = $('#start');
     var endInput = $('#end');
+    var loading = $('#loading');
     var jsonCheckbox = $('#json')[0];
     var csvCheckbox = $('#csv')[0];
 
@@ -33,18 +34,28 @@ var main = function () {
         var start = startInput.val();
         var end = endInput.val();
 
+        if (end < start) {
+            alert('start date must be greater than end!');
+            return;
+        }
+
         // Abort if no dates are selected
         if (!start || !end) {
             alert('Please select a start & end date!');
             return;
         }
 
+        // Abort if the no export types are selected
         if (!jsonCheckbox.checked && !csvCheckbox.checked) {
             alert('Select an export type!');
+            return;
         }
 
         // Build request URL
         var url = "/Home/GetData?start=" + start + "&end=" + end;
+
+        // Show the loading screen
+        loading.show();
 
         // Make the request.
         $.get(url, function (resultStr) {
@@ -67,6 +78,9 @@ var main = function () {
             if (csvCheckbox.checked) {
                 downloadCsv(tweets);
             }
+
+            // Hide the loading icon
+            loading.hide();
         });
     });
 }

@@ -22,6 +22,11 @@ namespace Iqvia.Controllers
         [HttpGet]
         public async Task<string> GetData(DateTime start, DateTime end)
         {
+            if (start > end)
+            {
+                throw new Exception("start date can't be greater than end!");
+            }
+
             var tweets = await TweetService.GetTweets(start, end, _concurrencyLevel);
             return JsonConvert.SerializeObject(tweets);
         }
