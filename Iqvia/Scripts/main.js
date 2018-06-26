@@ -21,6 +21,8 @@ var downloadJson = function (json) {
 
 var main = function () {
 
+    console.log('hello world from CI!');
+
     var fetchButton = $('#fetch');
     var startInput = $('#start');
     var endInput = $('#end');
