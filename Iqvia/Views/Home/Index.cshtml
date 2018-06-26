@@ -2,13 +2,6 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>IQVIA Interview Project</h1>
-    <p class="lead">Want tweets from a "bad twitter API"?  You've come to the right place.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-
 <!-- Import JQuery -->
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
 
@@ -16,63 +9,23 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.js"></script>
 
 <!-- Import Csv.js -->
-<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>-->
 <script type="text/javascript" src="~/Scripts/csv.min.js"></script>
 
-<!-- Main Script -->
-<script type="text/javascript">
+<!-- Import Main JS script -->
+<script type="text/javascript" src="~/Scripts/main.js"></script>
 
-    var tweets = null;
-
-    var main = function () {
-        $('#fetch').click(function (e) {
-
-            var start = $('#start').val();
-            var end = $('#end').val();
-
-            if (!start || !end) {
-                alert('Please select a start & end date!');
-                return;
-            }
-
-            var url = "/Home/GetData?start=" + start + "&end=" + end; // + "&numThreads=" + threads;
-
-            $.get(url, function (resultStr) {
-
-                //alert('response!');
-                var tweets = JSON.parse(resultStr);
-
-                if (tweets.length == 0) {
-                    alert("No tweets on this date, sorry man :(");
-                }
-
-                var lst = [];
-                for (i = 0; i < tweets.length; i++) {
-                    var tweet = tweets[i];
-                    lst.push([tweet.stamp, tweet.text, tweet.id]);
-                }
-
-                var csv = new CSV(lst);
-                var csvString = csv.encode();
-
-                download(csvString, "Tweet.csv", "text/plain");
-            });
-        });
-    }
-
-    $(document).ready(main);
-
-</script>
+<div style="margin-top: 30px" class="jumbotron">
+    <h1>IQVIA Interview Project</h1>
+    <p class="lead">Want tweets from a "bad twitter API"?  You've come to the right place.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
 
 <div class="row">
     <div class="col-md-12">
-
         <button type="button" class="btn btn-success" id="fetch">Get Tweets</button>
-
         <input value="1-1-2017" id="start" type="date" />
         <input value="12-31-2017" id="end" type="date" />
-
-        <input id="threads" type="number" />
-
+        JSON <input id="json" type="checkbox" />
+        CSV <input id="csv" type="checkbox" />
     </div>
 </div>
