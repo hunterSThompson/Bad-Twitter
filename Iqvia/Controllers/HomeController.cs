@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,6 +12,8 @@ namespace Iqvia.Controllers
 {
     public class HomeController : Controller
     {
+        int _concurrencyLevel = int.Parse(ConfigurationManager.AppSettings["Concurrency.Level"]);
+
         public ActionResult Index()
         {
             return View();
@@ -19,7 +22,7 @@ namespace Iqvia.Controllers
         [HttpGet]
         public async Task<string> GetData(DateTime start, DateTime end)
         {
-            var tweets = await TweetService.GetTweets(start, end, 4);
+            var tweets = await TweetService.GetTweets(start, end, _concurrencyLevel);
             return JsonConvert.SerializeObject(tweets);
         }
     }

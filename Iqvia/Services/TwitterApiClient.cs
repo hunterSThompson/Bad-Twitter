@@ -14,8 +14,7 @@ namespace Iqvia.Services
     /// </summary>
     class TwitterApiClient
     {
-        //string apiBaseUrl = ConfigurationManager.AppSettings["api.baseurl"];
-        string apiBaseUrl = "https://badapi.iqvia.io";
+        string apiBaseUrl = ConfigurationManager.AppSettings["Api.Url"];
 
         public async Task<List<TweetDTO>> GetTweets(DateTime start, DateTime end)
         {
