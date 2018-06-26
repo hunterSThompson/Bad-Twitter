@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,8 +10,7 @@ namespace Iqvia.Services
 {
     class TwitterApiClient
     {
-        int numThreads = 2;
-        string apiBaseUrl = "https://badapi.iqvia.io";
+        string apiBaseUrl = ConfigurationManager.AppSettings["api.baseurl"];
 
         public async Task<List<TweetDTO>> GetTweets(DateTime start, DateTime end)
         {

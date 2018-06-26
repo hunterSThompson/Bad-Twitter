@@ -17,10 +17,9 @@ namespace Iqvia.Controllers
         }
 
         [HttpGet]
-        public async Task<string> GetData(DateTime start, DateTime end, int numThreads)
+        public async Task<string> GetData(DateTime start, DateTime end)
         {
-            //var tweets = await TweetService.GetTweets(start, end, 4);
-            var tweets2 = await TweetService.GetTweets(start, end);
+            var tweets = await TweetService.GetTweets(start, end, 4);
             return JsonConvert.SerializeObject(tweets);
         }
     }

@@ -12,56 +12,50 @@
 <!-- Import JQuery -->
 <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
 
+<!-- Import download.js -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.js"></script>
+
+<!-- Import Csv.js -->
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>-->
+<script type="text/javascript" src="~/Scripts/csv.min.js"></script>
+
 <!-- Main Script -->
 <script type="text/javascript">
-    console.log("initalized.");
+
+    var tweets = null;
 
     var main = function () {
         $('#fetch').click(function (e) {
-            // ajax call here...
-            var start = encodeURIComponent($('#start').val());
-            var end = encodeURIComponent($('#end').val());
-            var threads = parseInt($('#threads').val());
+
+            var start = $('#start').val();
+            var end = $('#end').val();
 
             if (!start || !end) {
-                //alert('Please select a start & end date!');
+                alert('Please select a start & end date!');
+                return;
             }
 
-            var url = "/Home/GetData?start=" + start + "&end=" + end + "&numThreads=" + threads;
+            var url = "/Home/GetData?start=" + start + "&end=" + end; // + "&numThreads=" + threads;
 
-            //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017');
+            $.get(url, function (resultStr) {
 
-            //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017', function (result) {
-            $.get(url, function (result) {
+                //alert('response!');
+                var tweets = JSON.parse(resultStr);
 
-                alert('response!');
-                var res = JSON.parse(result);
-
-                if (res.length == 0) {
+                if (tweets.length == 0) {
                     alert("No tweets on this date, sorry man :(");
                 }
 
-                // todo: replace this with bootgrid plugin.
-                var container = $("#container");
-                container.empty();
-                $('table').show();
-
-                for (i = 0; i < res.length; i++) {
-
-                    var dataRow = res[i];
-
-                    var row = $("<tr><tr/>");
-
-                    var col1 = $("<td>" + dataRow.stamp + "<td/>");
-                    var col2 = $("<td>" + dataRow.text + "<td/>");
-                    var col3 = $("<td>" + dataRow.id + "<td/>"); 
-
-                    row.append(col1);
-                    row.append(col2);
-                    row.append(col3);
-
-                    container.append(row);
+                var lst = [];
+                for (i = 0; i < tweets.length; i++) {
+                    var tweet = tweets[i];
+                    lst.push([tweet.stamp, tweet.text, tweet.id]);
                 }
+
+                var csv = new CSV(lst);
+                var csvString = csv.encode();
+
+                download(csvString, "Tweet.csv", "text/plain");
             });
         });
     }
@@ -74,43 +68,11 @@
     <div class="col-md-12">
 
         <button type="button" class="btn btn-success" id="fetch">Get Tweets</button>
-        <input id="start" type="date" />
-        <input id="end" type="date" />
+
+        <input value="1-1-2017" id="start" type="date" />
+        <input value="12-31-2017" id="end" type="date" />
+
         <input id="threads" type="number" />
 
-        <table class="table" style="display: none">
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Message</th>
-                    <th>Id</th>
-                </tr>
-            </thead>
-            <tbody id="container">
-
-            </tbody>
-        </table>
-
-        <!--
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        -->
     </div>
-    <!--
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-    -->
 </div>
