@@ -19,8 +19,8 @@
     var main = function () {
         $('#fetch').click(function (e) {
             // ajax call here...
-            var start = $('#start').val();
-            var end = $('#end').val();
+            var start = encodeURIComponent($('#start').val());
+            var end = encodeURIComponent($('#end').val());
 
             if (!start || !end) {
                 //alert('Please select a start & end date!');
@@ -30,7 +30,8 @@
 
             //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017');
 
-            $.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017', function (result) {
+            //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017', function (result) {
+            $.get(url, function (result) {
 
                 var res = JSON.parse(result);
 
