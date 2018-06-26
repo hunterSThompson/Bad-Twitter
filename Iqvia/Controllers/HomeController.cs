@@ -16,27 +16,12 @@ namespace Iqvia.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         [HttpGet]
-        public async Task<string> GetData(DateTime start, DateTime end)
+        public async Task<string> GetData(DateTime start, DateTime end, int numThreads)
         {
-            var tweets = await TweetService.GetTweets(start, end);
-            var json = JsonConvert.SerializeObject(tweets);
-
-            return json;
+            //var tweets = await TweetService.GetTweets(start, end, 4);
+            var tweets2 = await TweetService.GetTweets(start, end);
+            return JsonConvert.SerializeObject(tweets);
         }
     }
 }

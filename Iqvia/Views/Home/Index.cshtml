@@ -21,18 +21,20 @@
             // ajax call here...
             var start = encodeURIComponent($('#start').val());
             var end = encodeURIComponent($('#end').val());
+            var threads = parseInt($('#threads').val());
 
             if (!start || !end) {
                 //alert('Please select a start & end date!');
             }
 
-            var url = "/Home/GetData?start=" + start + "&end=" + end;
+            var url = "/Home/GetData?start=" + start + "&end=" + end + "&numThreads=" + threads;
 
             //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017');
 
             //$.get('http://localhost:3690/Home/GetData?start=5/27/2017&end=6/1/2017', function (result) {
             $.get(url, function (result) {
 
+                alert('response!');
                 var res = JSON.parse(result);
 
                 if (res.length == 0) {
@@ -74,6 +76,7 @@
         <button type="button" class="btn btn-success" id="fetch">Get Tweets</button>
         <input id="start" type="date" />
         <input id="end" type="date" />
+        <input id="threads" type="number" />
 
         <table class="table" style="display: none">
             <thead>
