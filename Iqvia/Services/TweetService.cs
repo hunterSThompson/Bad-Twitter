@@ -5,11 +5,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 
-
-
 namespace Iqvia.Services
 {
-    class TweetService
+    public class TweetService
     {
         /// <summary>
         /// Fetch tweets in between the supplied dates, using parallel processing to speed up 
@@ -69,7 +67,7 @@ namespace Iqvia.Services
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        static public async Task<List<TweetDTO>> GetTweets(DateTime start, DateTime end)
+        public static async Task<List<TweetDTO>> GetTweets(DateTime start, DateTime end)
         {
             var client = new TwitterApiClient();
 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iqvia", "Iqvia\Iqvia.csproj
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{66DDE0FE-7AEB-43B4-B01E-8582928DE3B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iqvia.UnitTest", "Iqvia.UnitTest\Iqvia.UnitTest.csproj", "{ED4C26DA-9350-4BB8-91A7-4D97CF98C0CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{66DDE0FE-7AEB-43B4-B01E-8582928DE3B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66DDE0FE-7AEB-43B4-B01E-8582928DE3B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66DDE0FE-7AEB-43B4-B01E-8582928DE3B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED4C26DA-9350-4BB8-91A7-4D97CF98C0CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED4C26DA-9350-4BB8-91A7-4D97CF98C0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED4C26DA-9350-4BB8-91A7-4D97CF98C0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED4C26DA-9350-4BB8-91A7-4D97CF98C0CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

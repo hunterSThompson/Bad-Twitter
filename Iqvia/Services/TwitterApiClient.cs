@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -8,9 +9,13 @@ using System.Web;
 
 namespace Iqvia.Services
 {
+    /// <summary>
+    /// Wrapper class for the Twitter REST API.
+    /// </summary>
     class TwitterApiClient
     {
-        string apiBaseUrl = ConfigurationManager.AppSettings["api.baseurl"];
+        //string apiBaseUrl = ConfigurationManager.AppSettings["api.baseurl"];
+        string apiBaseUrl = "https://badapi.iqvia.io";
 
         public async Task<List<TweetDTO>> GetTweets(DateTime start, DateTime end)
         {
@@ -22,7 +27,7 @@ namespace Iqvia.Services
                 string endStr = ConvertToUtcString(end);
 
                 var result = await client.GetStringAsync($"/api/v1/Tweets?startDate={startStr}&endDate={endStr}");
-                var tweets = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TweetDTO>>(result);
+                var tweets = JsonConvert.DeserializeObject<List<TweetDTO>>(result);
 
                 return tweets;
             }
